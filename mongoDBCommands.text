@@ -61,3 +61,14 @@
 17. Deletes many documents at once --> db.collection.deleteMany({})
     Note: When passed with empty curly brace it will delete all documents in collection.
 
+18. Various conditions can be used inside find() method like Equality(Eq), LesstThan(lt), GreaterThan(gt), 
+LesstThanEqual(lte), GreaterThanEqual(gte), NotEqual.
+    --> db.leads.find({"Tax" : {$lte : "30"}},"Salary" : "120000"}) -- Finds documents in which tax is less than 30 and salary is 1200000.
+
+19. db.collection.find({ $and: [{},{}] }) --> Match all conditions mentioned in find method
+    --> db.leads.find({ $and : [{"Tax" : "30"}, {"Salary" : {$lte : "100000"}}]}) -- Finds documents in which tax is 30 
+    and salary is less than 1000000.
+
+20. db.collection.find({ $or: [{},{}] }) --> Match any conditions mentioned in find method
+
+21. 
