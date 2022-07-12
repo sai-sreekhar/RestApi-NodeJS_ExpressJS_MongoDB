@@ -17,7 +17,7 @@
 5. To Create Collection --> db.createCollection("<name-of-collection>")
 
 6. To Drop a Collection --> db.<collection-name>.drop() (here db is current working database)
-
+    
 7. To insert any Document into Collection --> db.<collection-name>.insert({"name" : "Sai Sreekar"})
 
 8. To insert many Document into Collection --> db.<collection-name>.insertMany([
@@ -25,25 +25,27 @@
                                                                     {"name" : "XYZ"}
                                                                     ])
 
-9. To update any Document in Collection --> db.<collection-name>.update(
-                                                                {"name" : "Mickey"},
-                                                                {
-                                                                    $set : {
-                                                                        "key1" : "value1",
-                                                                        "Key2" : "value2",
-                                                                    }
-                                                                }
-                                                                )
+9. To update any Document in Collection (By default, the db.collection.update() method updates a single document. Include the option multi: true to update all documents that match the query criteria.)
+---> db.<collection-name>.update(
+                    {"name" : "Mickey"},
+                    {
+                        $set : {
+                            "key1" : "value1",
+                            "Key2" : "value2",
+                        }
+                    }
+                    )
 
-10. To update many Documents in Collection --> db.<collection-name>.updateMany(
-                                                                {"active" : true},
-                                                                {
-                                                                    $set : {
-                                                                        "key1" : "value1",
-                                                                        "Key2" : "value2",
-                                                                    }
-                                                                }
-                                                                )
+10. To update many Documents in Collection 
+--> db.<collection-name>.updateMany(
+                        {"active" : true},
+                        {
+                            $set : {
+                                "key1" : "value1",
+                                "Key2" : "value2",
+                            }
+                        }
+                        )
 # Multiple Ways to Read data from Collection (11-15)
 
 11. Finds all documents in collection --> db.collection.find()
@@ -65,10 +67,76 @@
 LesstThanEqual(lte), GreaterThanEqual(gte), NotEqual.
     --> db.leads.find({"Tax" : {$lte : "30"}},"Salary" : "120000"}) -- Finds documents in which tax is less than 30 and salary is 1200000.
 
-19. db.collection.find({ $and: [{},{}] }) --> Match all conditions mentioned in find method
+19. db.collection.find({ $and: [{},{}] }) --> Match all conditions mentioned in find method.
     --> db.leads.find({ $and : [{"Tax" : "30"}, {"Salary" : {$lte : "100000"}}]}) -- Finds documents in which tax is 30 
     and salary is less than 1000000.
 
-20. db.collection.find({ $or: [{},{}] }) --> Match any conditions mentioned in find method
+20. db.collection.find({ $or: [{},{}] }) --> Match any conditions mentioned in find method.
 
-21. 
+21. Select specific fields from documents --> db.collection.find({<condition>},{"Tax":1,"_id":0}) -- Doesn't display id
+    Note: If you dont mention anything to _id by default it will return id.
+
+22. BSON -- Binary Encoded JSON. It has some extended data types like timeStamp, date, ObjectId.
+
+23. Projection is nothing but another name for selecting fields for showing or hiding.
+
+24. Aggregation is very similar to the find command where we can provide the criteria for our query in te form of JSON document. The key element in the aggregation is called the pipeline. It also helps us performing few operations like min, max, sum etc.
+
+    --> db.collection.aggregate(pipeline,options)
+
+    Pipeline is a sequence of data aggregration operatiosn or stages. It is an Array.
+    Options -- Documents can be passed as well.
+
+    Valid Aggregate Stages:
+    1. $count
+    2. $group
+    3. $limit
+    4. $lookup
+    5. $match
+    6. $merge
+    7. $sort
+    8. $project
+    9. $unwind
+    10. $unset
+        many more...
+
+    eg: var pipeline = [
+        {$sort = {"leadname" : 1}},  ---> 1 means ascending order
+        {$limit : 3} ---> limits to 3 after sorting
+    ];
+        db.collection.aggregate(pipeline)
+
+25.  db.collection.find().limit(4) --> get me 4 documents
+
+26. db.collection.find().skip(3)
+    Note: Skip will skip sequentially not random or advaoc.
+
+27. Sorting --> db.collection.find().sort({"leadName":1})
+    1 means ascending and -1 means descending.
+
+28. Creating Indexes in MongoDB:
+    Indexes are the fastest way to find information. 
+    db.collection.ensureIndex({"leadName":1})
+
+# Steps to create Backup of MongoDB data
+
+Step 1: First create a folder where you want to save your data.
+Step 2: Next, Run the command "mongodump.exe".
+Step 3: Verify the data dump and folder dumped correctly.
+
+# Steps to Restore MongoDB data
+
+Step 1: Make sure we habe got the backup of the datadump from MomgoDB.
+Step 2: Next, Run the command "mongorestore.exe".
+Step 3: Verify the data dump and folder dumped correctly.
+
+---> drop() function removes the specified collection from database while remove() deletes documents from a collection.
+
+---> createIndex() builds an index on a collection while reIndex() rebuilds all existing indexes on a collection.
+
+---> d.hostInfo() method returns a document with information about the system MongoDB runs on.
+
+---> db.collection.renameCollection() changes the name of coollection.
+
+---> db.collection.findAndModify() method automatically modifies and returns a single document while 
+db.collection.findOneAndUpdate() method finds a single document and updates it. The difference is in the "Automatic" process.
