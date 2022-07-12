@@ -14,7 +14,34 @@
     --> use <database-name>
     --> db.dropDatabase()
 
-5. To Create Collection --> db.createCollection("<name of collection>")
+5. To Create Collection --> db.createCollection("<name-of-collection>")
 
-6. To Drop a Collection --> db.<collection name>.drop() (here db is current working database)
+6. To Drop a Collection --> db.<collection-name>.drop() (here db is current working database)
 
+7. To insert any Document into Collection --> db.<collection-name>.insert({"name" : "Sai Sreekar"})
+
+8. To insert many Document into Collection --> db.<collection-name>.insertMany([
+                                                                    {"name" : "Sai Sreekar"},
+                                                                    {"name" : "XYZ"}
+                                                                    ])
+
+9. To update any Document in Collection --> db.<collection-name>.update(
+                                                                {"name" : "Mickey"},
+                                                                {
+                                                                    $set : {
+                                                                        "key1" : "value1",
+                                                                        "Key2" : "value2",
+                                                                    }
+                                                                }
+                                                                )
+
+10. To update many Documents in Collection --> db.<collection-name>.updateMany(
+                                                                {"active" : true},
+                                                                {
+                                                                    $set : {
+                                                                        "key1" : "value1",
+                                                                        "Key2" : "value2",
+                                                                    }
+                                                                }
+                                                                )
+11.
