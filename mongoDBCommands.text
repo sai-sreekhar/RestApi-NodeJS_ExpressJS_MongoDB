@@ -44,4 +44,20 @@
                                                                     }
                                                                 }
                                                                 )
-11.
+# Multiple Ways to Read data from Collection (11-15)
+
+11. Finds all documents in collection --> db.collection.find()
+
+12. Find first document in collection --> db.findOne()
+
+13. Find by setting query consitions --> find({"key1" : "value1", "key2" : "value2"})
+
+14. findOneAndReplace({"key1" : "value1", "key2" : "value2"},<replacement>)
+
+15. findOneAndDelete({"key1" : "value1", "key2" : "value2"})
+
+16. Finds all documents in collection and deletes --> db.collection.deleteOne({"_id":"7rfudfbhf3yr3yri3hr"})
+
+17. Deletes many documents at once --> db.collection.deleteMany({})
+    Note: When passed with empty curly brace it will delete all documents in collection.
+
