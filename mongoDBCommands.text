@@ -4,4 +4,14 @@
     The newly created database will NOT be visible unless we insert any document inside it.
     Make sure we see the message switched to db <database-name>.
 
-2. 
+2. show databases --> List all databases in MongoDB.
+
+3. db --> Shows the database we are currently workign in.
+
+4. Dropping Databases:
+
+    First we need to select the database.
+    --> use <database-name>
+    --> db.dropDatabase()
+
+
